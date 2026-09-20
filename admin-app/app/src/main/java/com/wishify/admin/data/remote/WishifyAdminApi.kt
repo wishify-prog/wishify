@@ -1,6 +1,7 @@
 package com.wishify.admin.data.remote
 
 import com.wishify.admin.data.model.*
+import okhttp3.MultipartBody
 import retrofit2.Response
 import retrofit2.http.*
 
@@ -184,4 +185,15 @@ interface WishifyAdminApi {
 
     @DELETE("api/v1/admin/slots/{id}")
     suspend fun deleteSlot(@Path("id") id: String): Response<ApiResponse<Map<String, String>>>
+
+    // --- PAYMENT SETTINGS ---
+    @GET("api/v1/admin/settings/payment")
+    suspend fun getPaymentSettings(): Response<ApiResponse<PaymentSetting>>
+
+    @PUT("api/v1/admin/settings/payment")
+    suspend fun updatePaymentSettings(@Body req: UpdatePaymentSettingRequest): Response<ApiResponse<PaymentSetting>>
+
+    @Multipart
+    @POST("api/v1/admin/settings/payment/upload-qr")
+    suspend fun uploadQrImage(@Part image: MultipartBody.Part): Response<ApiResponse<PaymentSetting>>
 }

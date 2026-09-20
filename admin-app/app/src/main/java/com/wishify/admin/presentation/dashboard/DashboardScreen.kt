@@ -27,6 +27,7 @@ import kotlinx.coroutines.launch
 fun DashboardScreen(
     repository: WishifyAdminRepository,
     onNavigateToOrders: () -> Unit,
+    onNavigateToPaymentSettings: () -> Unit = {},
     modifier: Modifier = Modifier
 ) {
     var statsState by remember { mutableStateOf<Result<DashboardStats>?>(null) }
@@ -133,6 +134,62 @@ fun DashboardScreen(
                                     icon = Icons.Default.Warning,
                                     color = if (stats.lowStockCount > 0) Color(0xFFE57373) else Color(0xFF81C784),
                                     modifier = Modifier.weight(1f)
+                                )
+                            }
+                        }
+                    }
+
+                    // Quick Action: UPI QR & Payment Settings
+                    item {
+                        Card(
+                            shape = RoundedCornerShape(16.dp),
+                            colors = CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.surface),
+                            elevation = CardDefaults.cardElevation(2.dp),
+                            onClick = onNavigateToPaymentSettings,
+                            modifier = Modifier.fillMaxWidth()
+                        ) {
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(16.dp),
+                                horizontalArrangement = Arrangement.SpaceBetween,
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                Row(
+                                    verticalAlignment = Alignment.CenterVertically,
+                                    modifier = Modifier.weight(1f)
+                                ) {
+                                    Box(
+                                        modifier = Modifier
+                                            .size(48.dp)
+                                            .background(GoldAccent.copy(alpha = 0.15f), RoundedCornerShape(12.dp)),
+                                        contentAlignment = Alignment.Center
+                                    ) {
+                                        Icon(
+                                            Icons.Default.QrCode2,
+                                            contentDescription = null,
+                                            tint = GoldAccent,
+                                            modifier = Modifier.size(28.dp)
+                                        )
+                                    }
+                                    Spacer(modifier = Modifier.width(14.dp))
+                                    Column {
+                                        Text(
+                                            "UPI QR & Payment Settings",
+                                            fontWeight = FontWeight.Bold,
+                                            style = MaterialTheme.typography.titleSmall
+                                        )
+                                        Text(
+                                            "Manage QR Code, UPI ID & COD rules",
+                                            fontSize = 12.sp,
+                                            color = Color.Gray
+                                        )
+                                    }
+                                }
+                                Icon(
+                                    Icons.Default.ChevronRight,
+                                    contentDescription = null,
+                                    tint = Color.Gray
                                 )
                             }
                         }

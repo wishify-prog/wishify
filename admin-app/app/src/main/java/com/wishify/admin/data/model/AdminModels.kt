@@ -414,3 +414,22 @@ data class CreateSlotRequest(
     val fee: Double = 0.0,
     val cutoffHoursBefore: Int = 2
 )
+
+// --- PAYMENT SETTINGS ---
+@Serializable
+data class PaymentSetting(
+    val id: String = "",
+    val upiId: String = "wishify@upi",
+    val qrImageUrl: String = "",
+    val accountHolderName: String = "Wishify Gifts",
+    val codMaxAmount: Double = 100.0
+)
+
+@Serializable
+data class UpdatePaymentSettingRequest(
+    val upiId: String? = null,
+    val qrImageUrl: String? = null,
+    val accountHolderName: String? = null,
+    val codMaxAmount: Double? = null
+)
+

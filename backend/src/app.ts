@@ -21,6 +21,7 @@ import { customerOrderRouter } from './modules/customer/orders/order.router';
 import { customerWishlistRouter } from './modules/customer/wishlist/wishlist.router';
 import { customerReminderRouter } from './modules/customer/reminders/reminders.router';
 import { customerNotificationRouter } from './modules/customer/notifications/notifications.router';
+import { customerPaymentSettingsRouter } from './modules/customer/settings/payment-settings.router';
 
 // Admin Routers
 import { adminAuthRouter } from './modules/admin/auth/admin-auth.router';
@@ -33,6 +34,7 @@ import { adminCustomersRouter } from './modules/admin/customers/admin-customers.
 import { adminReviewsRouter } from './modules/admin/reviews/admin-reviews.router';
 import { adminBroadcastRouter } from './modules/admin/broadcast/admin-broadcast.router';
 import { adminUsersRouter } from './modules/admin/users/admin-users.router';
+import { adminSettingsRouter } from './modules/admin/settings/admin-settings.router';
 
 import { eventBus } from './services/event-bus.service';
 
@@ -102,6 +104,7 @@ export const createApp = (): Express => {
   app.use('/api/v1/wishlist', customerWishlistRouter);
   app.use('/api/v1/reminders', customerReminderRouter);
   app.use('/api/v1/notifications', customerNotificationRouter);
+  app.use('/api/v1/payment', customerPaymentSettingsRouter);
 
   // Admin Routes (/api/v1/admin)
   app.use('/api/v1/admin/auth', adminAuthRouter);
@@ -114,6 +117,7 @@ export const createApp = (): Express => {
   app.use('/api/v1/admin/reviews', adminReviewsRouter);
   app.use('/api/v1/admin/broadcast', adminBroadcastRouter);
   app.use('/api/v1/admin/users', adminUsersRouter);
+  app.use('/api/v1/admin/settings', adminSettingsRouter);
 
   // Global Error Handler
   app.use(errorHandler);

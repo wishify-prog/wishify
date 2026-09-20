@@ -198,6 +198,7 @@ fun WishifyNavHost(
             composable(Screen.Checkout.route) {
                 CheckoutScreen(
                     repository = repository,
+                    userPreferences = userPreferences,
                     onBackClick = { navController.popBackStack() },
                     onOrderPlaced = { orderId ->
                         navController.navigate(Screen.OrderDetail.createRoute(orderId)) {

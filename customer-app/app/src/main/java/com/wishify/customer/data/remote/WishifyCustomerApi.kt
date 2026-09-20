@@ -80,6 +80,9 @@ interface WishifyCustomerApi {
     suspend fun addAddress(@Body address: Address): Response<ApiResponse<Address>>
 
     // Checkout & Orders
+    @GET("api/v1/payment/settings")
+    suspend fun getPaymentSettings(): Response<ApiResponse<PaymentSetting>>
+
     @POST("api/v1/checkout/initiate")
     suspend fun initiateCheckout(@Body req: InitiateCheckoutRequest): Response<ApiResponse<InitiateCheckoutResponse>>
 

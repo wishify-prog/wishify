@@ -34,6 +34,7 @@ enum PaymentMethod {
   RAZORPAY
   COD
   WALLET
+  UPI_QR
 }
 
 enum DiscountType {
@@ -513,4 +514,16 @@ model DeviceToken {
   updatedAt DateTime @updatedAt
 
   @@map("device_tokens")
+}
+
+model PaymentSetting {
+  id                String   @id @default(uuid())
+  upiId             String   @default("wishify@upi")
+  qrImageUrl        String   @default("https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=wishify@upi&pn=Wishify&cu=INR")
+  accountHolderName String   @default("Wishify Gifts")
+  codMaxAmount      Float    @default(100.0)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+
+  @@map("payment_settings")
 }

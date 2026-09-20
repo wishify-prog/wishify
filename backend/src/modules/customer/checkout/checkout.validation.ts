@@ -12,6 +12,7 @@ export const InitiateCheckoutSchema = z.object({
     isSenderHidden: z.boolean().default(false),
     deliveryDate: z.string().min(10, 'Delivery date is required (YYYY-MM-DD)'),
     deliverySlotId: z.string().uuid('Delivery slot is required'),
+    transactionReference: z.string().optional(),
   }),
 });
 

@@ -5,6 +5,9 @@ import com.wishify.admin.data.remote.AdminNetworkClient
 import com.wishify.admin.data.remote.WishifyAdminApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType.Companion.toMediaTypeOrNull
+import okhttp3.MultipartBody
+import okhttp3.RequestBody.Companion.toRequestBody
 
 class WishifyAdminRepository(
     private val api: WishifyAdminApi = AdminNetworkClient.api
@@ -579,4 +582,50 @@ class WishifyAdminRepository(
             Result.failure(e)
         }
     }
+
+    // --- PAYMENT SETTINGS ---
+    suspend fun getPaymentSettings(): Result<PaymentSetting> = withContext(Dispatchers.IO) {
+        try {
+            val response = api.getPaymentSettings()
+            val body = response.body()
+            if (response.isSuccessful && body?.success == true && body.data != null) {
+                Result.success(body.data)
+            } else {
+                Result.failure(Exception(body?.error?.message ?: "Failed to get payment settings"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun updatePaymentSettings(req: UpdatePaymentSettingRequest): Result<PaymentSetting> = withContext(Dispatchers.IO) {
+        try {
+            val response = api.updatePaymentSettings(req)
+            val body = response.body()
+            if (response.isSuccessful && body?.success == true && body.data != null) {
+                Result.success(body.data)
+            } else {
+                Result.failure(Exception(body?.error?.message ?: "Failed to update payment settings"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun uploadQrImage(imageBytes: ByteArray, mimeType: String = "image/jpeg"): Result<PaymentSetting> = withContext(Dispatchers.IO) {
+        try {
+            val reqBody = imageBytes.toRequestBody(mimeType.toMediaTypeOrNull())
+            val part = MultipartBody.Part.createFormData("image", "qr_${System.currentTimeMillis()}.jpg", reqBody)
+            val response = api.uploadQrImage(part)
+            val body = response.body()
+            if (response.isSuccessful && body?.success == true && body.data != null) {
+                Result.success(body.data)
+            } else {
+                Result.failure(Exception(body?.error?.message ?: "Failed to upload QR image"))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
 }
+

@@ -64,7 +64,7 @@ export class CustomerAuthService {
     const accessToken = jwt.sign(
       { id: user.id, role: user.role, phone: user.phone, email: user.email },
       ENV.JWT_ACCESS_SECRET,
-      { expiresIn: '15m' }
+      { expiresIn: '30d' }
     );
 
     const refreshToken = jwt.sign(
@@ -85,7 +85,7 @@ export class CustomerAuthService {
       tokens: {
         accessToken,
         refreshToken,
-        expiresIn: 900,
+        expiresIn: 2592000,
       },
     };
   }
@@ -104,10 +104,10 @@ export class CustomerAuthService {
       const accessToken = jwt.sign(
         { id: user.id, role: user.role, phone: user.phone, email: user.email },
         ENV.JWT_ACCESS_SECRET,
-        { expiresIn: '15m' }
+        { expiresIn: '30d' }
       );
 
-      return { accessToken, expiresIn: 900 };
+      return { accessToken, expiresIn: 2592000 };
     } catch (err) {
       throw new Error('INVALID_REFRESH_TOKEN');
     }

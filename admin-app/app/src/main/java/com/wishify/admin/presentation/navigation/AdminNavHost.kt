@@ -19,6 +19,7 @@ import com.wishify.admin.presentation.dashboard.DashboardScreen
 import com.wishify.admin.presentation.orders.OrderPipelineScreen
 import com.wishify.admin.presentation.products.AdminProductsScreen
 import com.wishify.admin.presentation.reviews.ReviewModerationScreen
+import com.wishify.admin.presentation.settings.AdminPaymentSettingsScreen
 import com.wishify.admin.ui.theme.GoldAccent
 
 sealed class AdminScreen(val route: String) {
@@ -30,6 +31,7 @@ sealed class AdminScreen(val route: String) {
     object Customers : AdminScreen("customers")
     object Reviews : AdminScreen("reviews")
     object Broadcast : AdminScreen("broadcast")
+    object PaymentSettings : AdminScreen("payment_settings")
 }
 
 data class AdminNavItem(
@@ -122,7 +124,8 @@ fun AdminNavHost(
             composable(AdminScreen.Dashboard.route) {
                 DashboardScreen(
                     repository = repository,
-                    onNavigateToOrders = { navController.navigate(AdminScreen.Orders.route) }
+                    onNavigateToOrders = { navController.navigate(AdminScreen.Orders.route) },
+                    onNavigateToPaymentSettings = { navController.navigate(AdminScreen.PaymentSettings.route) }
                 )
             }
 
@@ -148,6 +151,13 @@ fun AdminNavHost(
 
             composable(AdminScreen.Broadcast.route) {
                 BroadcastPushScreen(repository = repository)
+            }
+
+            composable(AdminScreen.PaymentSettings.route) {
+                AdminPaymentSettingsScreen(
+                    repository = repository,
+                    onBackClick = { navController.popBackStack() }
+                )
             }
         }
     }

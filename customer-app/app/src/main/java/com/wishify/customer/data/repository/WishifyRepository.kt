@@ -182,6 +182,16 @@ class WishifyRepository(
         }
     }
 
+    private fun parseErrorMessage(errorBody: String?, defaultMsg: String): String {
+        if (errorBody.isNullOrBlank()) return defaultMsg
+        return try {
+            val regex = "\"message\"\\s*:\\s*\"([^\"]+)\"".toRegex()
+            regex.find(errorBody)?.groupValues?.get(1) ?: errorBody
+        } catch (e: Exception) {
+            defaultMsg
+        }
+    }
+
     suspend fun getAddresses(): Result<List<Address>> = withContext(Dispatchers.IO) {
         try {
             val response = api.getAddresses()
@@ -189,7 +199,8 @@ class WishifyRepository(
             if (response.isSuccessful && body?.success == true && body.data != null) {
                 Result.success(body.data)
             } else {
-                Result.failure(Exception(body?.error?.message ?: "Failed to fetch addresses"))
+                val errorMsg = parseErrorMessage(response.errorBody()?.string(), body?.error?.message ?: "Failed to fetch addresses")
+                Result.failure(Exception(errorMsg))
             }
         } catch (e: Exception) {
             Result.failure(e)
@@ -203,7 +214,8 @@ class WishifyRepository(
             if (response.isSuccessful && body?.success == true && body.data != null) {
                 Result.success(body.data)
             } else {
-                Result.failure(Exception(body?.error?.message ?: "Failed to save address"))
+                val errorMsg = parseErrorMessage(response.errorBody()?.string(), body?.error?.message ?: "Failed to save address")
+                Result.failure(Exception(errorMsg))
             }
         } catch (e: Exception) {
             Result.failure(e)
@@ -217,7 +229,22 @@ class WishifyRepository(
             if (response.isSuccessful && body?.success == true && body.data != null) {
                 Result.success(body.data)
             } else {
-                Result.failure(Exception(body?.error?.message ?: "Checkout initiation failed"))
+                val errorMsg = parseErrorMessage(response.errorBody()?.string(), body?.error?.message ?: "Checkout initiation failed")
+                Result.failure(Exception(errorMsg))
+            }
+        } catch (e: Exception) {
+            Result.failure(e)
+        }
+    }
+
+    suspend fun getPaymentSettings(): Result<PaymentSetting> = withContext(Dispatchers.IO) {
+        try {
+            val response = api.getPaymentSettings()
+            val body = response.body()
+            if (response.isSuccessful && body?.success == true && body.data != null) {
+                Result.success(body.data)
+            } else {
+                Result.failure(Exception(body?.error?.message ?: "Failed to fetch payment settings"))
             }
         } catch (e: Exception) {
             Result.failure(e)

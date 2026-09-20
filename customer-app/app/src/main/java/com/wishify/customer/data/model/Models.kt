@@ -260,7 +260,7 @@ data class AddOnRequest(
 
 @Serializable
 data class Address(
-    val id: String,
+    val id: String = "",
     val name: String,
     val phone: String,
     val addressLine1: String,
@@ -309,7 +309,17 @@ data class InitiateCheckoutRequest(
     val giftMessage: String? = null,
     val isSenderHidden: Boolean = false,
     val deliveryDate: String,
-    val deliverySlotId: String
+    val deliverySlotId: String,
+    val transactionReference: String? = null
+)
+
+@Serializable
+data class PaymentSetting(
+    val id: String = "",
+    val upiId: String = "wishify@upi",
+    val qrImageUrl: String = "",
+    val accountHolderName: String = "Wishify Gifts",
+    val codMaxAmount: Double = 100.0
 )
 
 @Serializable

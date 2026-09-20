@@ -22,6 +22,11 @@ jest.mock('../src/services/prisma.service', () => ({
     coupon: {
       findUnique: jest.fn(),
     },
+    paymentSetting: {
+      findFirst: jest.fn(),
+      create: jest.fn(),
+      update: jest.fn(),
+    },
   },
 }));
 
@@ -109,5 +114,22 @@ describe('Catalog, Delivery & Coupon Flow', () => {
     // 20% of 800 = 160
     expect(res.body.data.discountAmount).toBe(160);
     expect(res.body.data.finalAmount).toBe(640);
+  });
+
+  it('GET /api/v1/payment/settings should return active payment and UPI QR settings', async () => {
+    (prisma.paymentSetting.findFirst as jest.Mock).mockResolvedValue({
+      id: 'setting-1',
+      upiId: 'wishify@upi',
+      qrImageUrl: 'https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=upi://pay?pa=wishify@upi',
+      accountHolderName: 'Wishify Gifts',
+      codMaxAmount: 100.0,
+    });
+
+    const res = await request(app).get('/api/v1/payment/settings');
+    expect(res.status).toBe(200);
+    expect(res.body.success).toBe(true);
+    expect(res.body.data.upiId).toBe('wishify@upi');
+    expect(res.body.data.codMaxAmount).toBe(100.0);
+    expect(res.body.data.qrImageUrl).toContain('qrserver');
   });
 });
