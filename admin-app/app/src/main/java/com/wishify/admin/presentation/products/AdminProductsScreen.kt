@@ -66,7 +66,7 @@ fun AdminProductsScreen(
                 onClick = { showCreateDialog = true },
                 containerColor = GoldAccent
             ) {
-                Icon(Icons.Default.Add, contentDescription = "Add Product", tint = Color.Black)
+                Icon(Icons.Default.Add, contentDescription = "Add Product", tint = Color.White)
             }
         },
         modifier = modifier
@@ -263,7 +263,7 @@ fun AdminProductsScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = GoldAccent)
                 ) {
-                    Text("Create Product", color = Color.Black)
+                    Text("Create Product", color = Color.White)
                 }
             },
             dismissButton = {
@@ -322,7 +322,7 @@ fun AdminProductsScreen(
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = GoldAccent)
                 ) {
-                    Text("Save Changes", color = Color.Black)
+                    Text("Save Changes", color = Color.White)
                 }
             },
             dismissButton = {

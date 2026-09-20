@@ -10,19 +10,19 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 
-private val DarkColorScheme = darkColorScheme(
-    primary = GoldAccent,
-    onPrimary = DarkPlumBackground,
-    primaryContainer = DarkPlumPrimary,
-    onPrimaryContainer = TextPrimary,
-    secondary = GoldDark,
-    onSecondary = DarkPlumBackground,
-    background = DarkPlumBackground,
-    onBackground = TextPrimary,
-    surface = DarkPlumSurface,
-    onSurface = TextPrimary,
-    surfaceVariant = DarkPlumSurfaceVariant,
-    onSurfaceVariant = TextSecondary
+private val LightColorScheme = lightColorScheme(
+    primary = AdminGreenPrimary,
+    onPrimary = AdminSurfaceWhite,
+    primaryContainer = AdminGreenContainer,
+    onPrimaryContainer = AdminGreenPrimary,
+    secondary = AdminLightGreen,
+    onSecondary = AdminSurfaceWhite,
+    background = AdminWhiteBackground,
+    onBackground = AdminTextPrimary,
+    surface = AdminSurfaceWhite,
+    onSurface = AdminTextPrimary,
+    surfaceVariant = AdminSurfaceVariant,
+    onSurfaceVariant = AdminTextSecondary
 )
 
 val Shapes = Shapes(
@@ -37,13 +37,13 @@ fun WishifyAdminTheme(content: @Composable () -> Unit) {
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = DarkPlumBackground.toArgb()
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
+            window.statusBarColor = AdminSurfaceWhite.toArgb()
+            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = true
         }
     }
 
     MaterialTheme(
-        colorScheme = DarkColorScheme,
+        colorScheme = LightColorScheme,
         shapes = Shapes,
         content = content
     )

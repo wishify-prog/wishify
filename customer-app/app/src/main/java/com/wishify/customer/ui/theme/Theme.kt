@@ -12,30 +12,30 @@ import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
 private val LightColorScheme = lightColorScheme(
-    primary = RosePrimary,
-    onPrimary = SurfaceLight,
-    primaryContainer = RoseLight,
-    onPrimaryContainer = PlumDark,
-    secondary = PlumText,
-    onSecondary = SurfaceLight,
-    tertiary = GoldAccent,
-    onTertiary = PlumDark,
-    background = BlushBackground,
-    onBackground = PlumText,
-    surface = SurfaceLight,
-    onSurface = PlumText,
-    surfaceVariant = SurfaceVariantLight,
-    onSurfaceVariant = PlumText
+    primary = GreenPrimary,
+    onPrimary = SurfaceWhite,
+    primaryContainer = GreenContainer,
+    onPrimaryContainer = GreenDark,
+    secondary = GreenAccent,
+    onSecondary = SurfaceWhite,
+    tertiary = GreenLight,
+    onTertiary = TextPrimaryDark,
+    background = WhiteBackground,
+    onBackground = TextPrimaryDark,
+    surface = SurfaceWhite,
+    onSurface = TextPrimaryDark,
+    surfaceVariant = SurfaceVariantGreen,
+    onSurfaceVariant = TextPrimaryDark
 )
 
 private val DarkColorScheme = darkColorScheme(
-    primary = RosePrimaryDark,
-    onPrimary = PlumDark,
-    primaryContainer = RoseDark,
+    primary = GreenPrimaryDark,
+    onPrimary = SurfaceDark,
+    primaryContainer = GreenDark,
     onPrimaryContainer = TextLight,
-    secondary = GoldAccent,
-    onSecondary = PlumDark,
-    tertiary = GoldDark,
+    secondary = GreenLight,
+    onSecondary = SurfaceDark,
+    tertiary = GreenAccent,
     onTertiary = TextLight,
     background = BackgroundDark,
     onBackground = TextLight,
@@ -55,7 +55,7 @@ fun WishifyTheme(
     if (!view.isInEditMode) {
         SideEffect {
             val window = (view.context as Activity).window
-            window.statusBarColor = colorScheme.primary.toArgb()
+            window.statusBarColor = if (darkTheme) BackgroundDark.toArgb() else SurfaceWhite.toArgb()
             WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = !darkTheme
         }
     }

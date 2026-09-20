@@ -171,7 +171,7 @@ fun BannersTab(repository: WishifyAdminRepository) {
                 .align(Alignment.BottomEnd)
                 .padding(24.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Banner", tint = Color.Black)
+            Icon(Icons.Default.Add, contentDescription = "Add Banner", tint = Color.White)
         }
     }
 
@@ -202,7 +202,7 @@ fun BannersTab(repository: WishifyAdminRepository) {
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = GoldAccent)
                 ) {
-                    Text("Save", color = Color.Black)
+                    Text("Save", color = Color.White)
                 }
             },
             dismissButton = {
@@ -306,7 +306,7 @@ fun CategoriesTab(repository: WishifyAdminRepository) {
                 .align(Alignment.BottomEnd)
                 .padding(24.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Category", tint = Color.Black)
+            Icon(Icons.Default.Add, contentDescription = "Add Category", tint = Color.White)
         }
     }
 
@@ -340,7 +340,7 @@ fun CategoriesTab(repository: WishifyAdminRepository) {
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = GoldAccent)
                 ) {
-                    Text("Save", color = Color.Black)
+                    Text("Save", color = Color.White)
                 }
             },
             dismissButton = {
@@ -435,7 +435,7 @@ fun OccasionsTab(repository: WishifyAdminRepository) {
                 .align(Alignment.BottomEnd)
                 .padding(24.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Occasion", tint = Color.Black)
+            Icon(Icons.Default.Add, contentDescription = "Add Occasion", tint = Color.White)
         }
     }
 
@@ -468,7 +468,7 @@ fun OccasionsTab(repository: WishifyAdminRepository) {
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = GoldAccent)
                 ) {
-                    Text("Save", color = Color.Black)
+                    Text("Save", color = Color.White)
                 }
             },
             dismissButton = {
@@ -562,7 +562,7 @@ fun CouponsTab(repository: WishifyAdminRepository) {
                 .align(Alignment.BottomEnd)
                 .padding(24.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Coupon", tint = Color.Black)
+            Icon(Icons.Default.Add, contentDescription = "Add Coupon", tint = Color.White)
         }
     }
 
@@ -595,7 +595,7 @@ fun CouponsTab(repository: WishifyAdminRepository) {
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = GoldAccent)
                 ) {
-                    Text("Save", color = Color.Black)
+                    Text("Save", color = Color.White)
                 }
             },
             dismissButton = {
@@ -685,7 +685,7 @@ fun SlotsTab(repository: WishifyAdminRepository) {
                 .align(Alignment.BottomEnd)
                 .padding(24.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Slot", tint = Color.Black)
+            Icon(Icons.Default.Add, contentDescription = "Add Slot", tint = Color.White)
         }
     }
 
@@ -719,7 +719,7 @@ fun SlotsTab(repository: WishifyAdminRepository) {
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = GoldAccent)
                 ) {
-                    Text("Save", color = Color.Black)
+                    Text("Save", color = Color.White)
                 }
             },
             dismissButton = {
@@ -805,7 +805,7 @@ fun PincodesTab(repository: WishifyAdminRepository) {
                 .align(Alignment.BottomEnd)
                 .padding(24.dp)
         ) {
-            Icon(Icons.Default.Add, contentDescription = "Add Pincode", tint = Color.Black)
+            Icon(Icons.Default.Add, contentDescription = "Add Pincode", tint = Color.White)
         }
     }
 
@@ -836,7 +836,7 @@ fun PincodesTab(repository: WishifyAdminRepository) {
                     },
                     colors = ButtonDefaults.buttonColors(containerColor = GoldAccent)
                 ) {
-                    Text("Save", color = Color.Black)
+                    Text("Save", color = Color.White)
                 }
             },
             dismissButton = {
