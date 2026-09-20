@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">Wishify</string>
+    <string name="tagline">Wish it. Gift it. Delivered.</string>
+    <string name="nav_home">Home</string>
+    <string name="nav_categories">Categories</string>
+    <string name="nav_occasions">Occasions</string>
+    <string name="nav_cart">Cart</string>
+    <string name="nav_account">Account</string>
+    
+    <string name="search_hint">Search flowers, cakes, gifts...</string>
+    <string name="select_pincode">Deliver to: %1$s</string>
+    <string name="trending_title">Trending Gifts</string>
+    <string name="best_sellers_title">Best Sellers</string>
+    <string name="same_day_title">Same-Day Delivery</string>
+    <string name="under_999_title">Under ₹999</string>
+
+    <string name="add_to_cart">Add to Cart</string>
+    <string name="buy_now">Buy Now</string>
+    <string name="checkout">Proceed to Checkout</string>
+    <string name="select_date_slot">Select Delivery Date &amp; Slot</string>
+    <string name="apply_coupon">Apply Coupon</string>
+    <string name="order_placed">Order Placed</string>
+    <string name="order_confirmed">Confirmed</string>
+    <string name="order_prepared">Prepared</string>
+    <string name="order_out">Out for Delivery</string>
+    <string name="order_delivered">Delivered</string>
+
+    <string name="login_title">Enter Mobile Number</string>
+    <string name="login_subtitle">We will send a 6-digit OTP to verify</string>
+    <string name="otp_title">Verify OTP</string>
+    <string name="verify_and_proceed">Verify &amp; Proceed</string>
+    <string name="continue_as_guest">Continue as Guest</string>
+</resources>

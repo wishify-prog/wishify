@@ -1,0 +1,33 @@
+<resources>
+    <string name="app_name">विशिफाई (Wishify)</string>
+    <string name="tagline">इच्छा करो। उपहार दो। पहुँचाया गया।</string>
+    <string name="nav_home">होम</string>
+    <string name="nav_categories">श्रेणियां</string>
+    <string name="nav_occasions">अवसर</string>
+    <string name="nav_cart">कार्ट</string>
+    <string name="nav_account">खाता</string>
+    
+    <string name="search_hint">फूल, केक, उपहार खोजें...</string>
+    <string name="select_pincode">डिलीवरी: %1$s</string>
+    <string name="trending_title">ट्रेंडिंग उपहार</string>
+    <string name="best_sellers_title">सर्वश्रेष्ठ विक्रेता</string>
+    <string name="same_day_title">उसी दिन डिलीवरी</string>
+    <string name="under_999_title">₹999 से कम</string>
+
+    <string name="add_to_cart">कार्ट में जोड़ें</string>
+    <string name="buy_now">अभी खरीदें</string>
+    <string name="checkout">चेकआउट करें</string>
+    <string name="select_date_slot">डिलीवरी की तारीख और स्लॉट चुनें</string>
+    <string name="apply_coupon">कूपन लागू करें</string>
+    <string name="order_placed">ऑर्डर दिया गया</string>
+    <string name="order_confirmed">पुष्टि की गई</string>
+    <string name="order_prepared">तैयार किया गया</string>
+    <string name="order_out">डिलीवरी के लिए निकला</string>
+    <string name="order_delivered">डिलीवर किया गया</string>
+
+    <string name="login_title">मोबाइल नंबर दर्ज करें</string>
+    <string name="login_subtitle">सत्यापन के लिए 6-अंकीय ओटीपी भेजेंगे</string>
+    <string name="otp_title">ओटीपी सत्यापित करें</string>
+    <string name="verify_and_proceed">सत्यापित करें और आगे बढ़ें</string>
+    <string name="continue_as_guest">अतिथि के रूप में जारी रखें</string>
+</resources>

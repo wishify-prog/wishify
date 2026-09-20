@@ -1,0 +1,281 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Wishify Gifting Marketplace API",
+    "description": "Unified REST API for the Wishify Customer and Admin Android applications. Supports flowers, cakes, plants, chocolates, personalized gifts, and combo orders with scheduled delivery slots and Razorpay / COD checkout.",
+    "version": "1.0.0",
+    "contact": {
+      "name": "Wishify Engineering",
+      "email": "dev@wishify.in"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:4000",
+      "description": "Local Development Server"
+    },
+    {
+      "url": "https://api.wishify.in",
+      "description": "Production Railway Server"
+    }
+  ],
+  "components": {
+    "securitySchemes": {
+      "bearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
+      }
+    },
+    "schemas": {
+      "ApiResponse": {
+        "type": "object",
+        "properties": {
+          "success": { "type": "boolean" },
+          "data": { "type": "object", "nullable": true },
+          "error": {
+            "type": "object",
+            "nullable": true,
+            "properties": {
+              "code": { "type": "string" },
+              "message": { "type": "string" },
+              "details": { "type": "object", "nullable": true }
+            }
+          }
+        }
+      },
+      "Product": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "title": { "type": "string" },
+          "slug": { "type": "string" },
+          "description": { "type": "string" },
+          "basePrice": { "type": "number" },
+          "compareAtPrice": { "type": "number", "nullable": true },
+          "isVegetarian": { "type": "boolean" },
+          "isPersonalized": { "type": "boolean" },
+          "personalizationPrompt": { "type": "string", "nullable": true },
+          "isSameDayEligible": { "type": "boolean" },
+          "isMidnightEligible": { "type": "boolean" },
+          "averageRating": { "type": "number" },
+          "reviewCount": { "type": "integer" }
+        }
+      },
+      "Order": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string", "format": "uuid" },
+          "orderNumber": { "type": "string" },
+          "subtotal": { "type": "number" },
+          "deliveryFee": { "type": "number" },
+          "discountAmount": { "type": "number" },
+          "taxAmount": { "type": "number" },
+          "totalAmount": { "type": "number" },
+          "orderStatus": {
+            "type": "string",
+            "enum": ["PLACED", "CONFIRMED", "PREPARED", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED"]
+          },
+          "paymentStatus": {
+            "type": "string",
+            "enum": ["PENDING", "PAID", "FAILED", "REFUNDED"]
+          },
+          "paymentMethod": {
+            "type": "string",
+            "enum": ["RAZORPAY", "COD", "WALLET"]
+          },
+          "deliveryDate": { "type": "string", "format": "date-time" },
+          "recipientName": { "type": "string" },
+          "recipientPhone": { "type": "string" }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/health": {
+      "get": {
+        "summary": "Health Check Endpoint",
+        "responses": {
+          "200": { "description": "Backend is healthy" }
+        }
+      }
+    },
+    "/api/v1/auth/request-otp": {
+      "post": {
+        "summary": "Request Phone Login OTP",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone": { "type": "string", "example": "+919876543210" }
+                },
+                "required": ["phone"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "OTP sent successfully" }
+        }
+      }
+    },
+    "/api/v1/auth/verify-otp": {
+      "post": {
+        "summary": "Verify OTP and obtain JWT tokens",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "phone": { "type": "string", "example": "+919876543210" },
+                  "otp": { "type": "string", "example": "123456" }
+                },
+                "required": ["phone", "otp"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Tokens issued" }
+        }
+      }
+    },
+    "/api/v1/home": {
+      "get": {
+        "summary": "Get Home Feed",
+        "responses": {
+          "200": { "description": "Curated home feed sections" }
+        }
+      }
+    },
+    "/api/v1/products": {
+      "get": {
+        "summary": "List Products with filters",
+        "parameters": [
+          { "name": "categoryId", "in": "query", "schema": { "type": "string" } },
+          { "name": "occasionId", "in": "query", "schema": { "type": "string" } },
+          { "name": "minPrice", "in": "query", "schema": { "type": "number" } },
+          { "name": "maxPrice", "in": "query", "schema": { "type": "number" } },
+          { "name": "isVegetarian", "in": "query", "schema": { "type": "boolean" } },
+          { "name": "sort", "in": "query", "schema": { "type": "string" } },
+          { "name": "page", "in": "query", "schema": { "type": "integer" } },
+          { "name": "limit", "in": "query", "schema": { "type": "integer" } }
+        ],
+        "responses": {
+          "200": { "description": "Paginated product list" }
+        }
+      }
+    },
+    "/api/v1/products/{slug}": {
+      "get": {
+        "summary": "Get Product Detail by Slug",
+        "parameters": [
+          { "name": "slug", "in": "path", "required": true, "schema": { "type": "string" } }
+        ],
+        "responses": {
+          "200": { "description": "Product details" }
+        }
+      }
+    },
+    "/api/v1/cart": {
+      "get": {
+        "summary": "Get Current Cart",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Cart items and calculated totals" }
+        }
+      }
+    },
+    "/api/v1/cart/items": {
+      "post": {
+        "summary": "Add Item to Cart",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "201": { "description": "Item added to cart" }
+        }
+      }
+    },
+    "/api/v1/checkout/initiate": {
+      "post": {
+        "summary": "Initiate Checkout & Create Order",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "201": { "description": "Order created & payment details" }
+        }
+      }
+    },
+    "/api/v1/checkout/verify": {
+      "post": {
+        "summary": "Verify Razorpay Payment",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Payment verified and order confirmed" }
+        }
+      }
+    },
+    "/api/v1/orders": {
+      "get": {
+        "summary": "List Customer Orders",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Customer orders" }
+        }
+      }
+    },
+    "/api/v1/admin/auth/login": {
+      "post": {
+        "summary": "Admin Email/Password Login",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string" },
+                  "password": { "type": "string" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Admin authenticated" }
+        }
+      }
+    },
+    "/api/v1/admin/dashboard/stats": {
+      "get": {
+        "summary": "Get Admin Dashboard Stats",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Dashboard KPI statistics" }
+        }
+      }
+    },
+    "/api/v1/admin/orders": {
+      "get": {
+        "summary": "List All Orders for Admin",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Admin order list" }
+        }
+      }
+    },
+    "/api/v1/admin/orders/{id}/status": {
+      "patch": {
+        "summary": "Update Order Status Pipeline",
+        "security": [{ "bearerAuth": [] }],
+        "responses": {
+          "200": { "description": "Status updated and customer notified via push" }
+        }
+      }
+    }
+  }
+}
